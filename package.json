@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "daisyui": "^1.25.4",
+    "nuxt3": "^3.0.0-27394404.1672148",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18"
+  }
+}
