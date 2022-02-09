@@ -1,3 +1,12 @@
+<script setup>
+  const menuItems = [
+    { path: '/', title: 'Accueil' },
+    { path: '/category/head', title: 'Tête' },
+    { path: '/category/body', title: 'Hauts' },
+    { path: '/category/other', title: 'Autres' },
+  ]
+</script>
+
 <template>
   <div class="flex h-full">
     
@@ -7,20 +16,10 @@
       <h1 class="mt-5 px-5 text-2xl font-bold">DT Merch</h1>
 
       <ul class="menu w-full mt-10 px-0">
-        <li class="bordered">
-          <a>
-            It shows border on hover 
-          </a>
-        </li>
-        <li class="hover-bordered">
-          <a>
-            It shows border on hover 
-          </a>
-        </li>
-        <li class="hover-bordered">
-          <a>
-            It shows border on hover 
-          </a>
+        <li v-for="menuItem in menuItems" :class="menuItem.path === $route.path ? 'bordered' : 'hover-bordered'">
+          <NuxtLink :to="menuItem.path">
+            {{ menuItem.title }}
+          </NuxtLink>
         </li>
       </ul>
 
