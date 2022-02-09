@@ -8,7 +8,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.2",
     "daisyui": "^1.25.4",
-    "nuxt3": "^3.0.0-27394404.1672148",
+    "nuxt3": "^3.0.0-27405808.7825e2a",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.18"
   }
