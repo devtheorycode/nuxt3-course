@@ -22,6 +22,7 @@
     class="card card-compact rounded-none cursor-pointer"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"
+    @click="$router.push('/product/123')"
     >
     <figure>
       <img :class="isHovering ? 'scale-110' : ''" class="transition-transform duration-500" :src="imageSrc">
