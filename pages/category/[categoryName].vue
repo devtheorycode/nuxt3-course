@@ -1,9 +1,8 @@
 <script setup>
-
   const route = useRoute()
   const categoryName = route.params.categoryName
 
-  const { data: products } = await useAsyncData(`products-${categoryName}`, () => $fetch(`http://localhost:3001/products/?category=${categoryName}`))
+  const { data: products } = await useFetch(`http://localhost:3001/products/?category=${categoryName}`)
 </script>
 
 <template>
@@ -12,6 +11,7 @@
     <cards-container class="mt-10">
       <product-card
         v-for="product in products"
+        :id="product.id"
         :name="product.name"
         :price="product.price"
         :imageSrc="'/assets/images/'+product.imageName"

@@ -2,6 +2,10 @@
   let isHovering = ref(false)
 
   const props = defineProps({
+    id: {
+      type: Number,
+      required: true
+    },
     name: {
       type: String,
       required: true
@@ -22,10 +26,10 @@
     class="card card-compact rounded-none cursor-pointer"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"
-    @click="$router.push('/product/123')"
+    @click="$router.push('/product/' + id)"
     >
     <figure>
-      <img :class="isHovering ? 'scale-110' : ''" class="transition-transform duration-500" :src="imageSrc">
+      <img :class="isHovering ? 'scale-110' : ''" class="transition-transform duration-500" :src="imageSrc" :alt="name">
     </figure> 
     <div class="card-body">
       <p>

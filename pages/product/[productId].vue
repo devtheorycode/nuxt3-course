@@ -2,22 +2,16 @@
   import { StarIcon } from '@heroicons/vue/solid'
   import { StarIcon as EmptyStarIcon } from '@heroicons/vue/outline'
   
-  const product = {
-    name: 'Super Hoodie',
-    categoryName: 'Hauts',
-    price: 19,
-    imageSrc: 'https://picsum.photos/id/1005/400/250',
-    variants: ["XS", "S", "M", "L", "XL", "2XL"],
-    defaultVariant: "M",
-    averageRate: 4.7,
-    totalReviews: 10
-  }
+  const route = useRoute()
+  const productId = route.params.productId
+
+  const { data: product } = await useFetch(`http://localhost:3001/products/${productId}`)
 </script>
 
 <template>
   <div class="flex flex-row-reverse gap-5">
     <div class="w-2/3">
-      <img class="w-full" :src="product.imageSrc" :alt="product.name">
+      <img class="w-full" :src="'/assets/images/'+product.imageName" :alt="product.name">
     </div>
     <div class="w-1/3">
       
@@ -27,7 +21,7 @@
             Catégorie
           </li> 
           <li>
-            <a>{{ product.categoryName }}</a>
+            <NuxtLink :to="'/category/' + product.category">{{ product.category }}</NuxtLink>
           </li>
           <li>
             <span class="text-base-content/75">Ce produit</span>
@@ -36,11 +30,11 @@
       </div>
 
       <h1 class="mt-8 text-xl font-bold">{{ product.name }}</h1>
-      <p class="mt-4 text-sm">
+      <!-- <p class="mt-4 text-sm">
         <span class="align-middle">{{ product.averageRate }}</span>
         <StarIcon class="ml-1 inline w-5 align-middle" />
         <small class="pl-3 align-middle">{{ product.totalReviews }} avis</small>
-      </p>
+      </p> -->
       <p class="mt-4 text-sm font-bold">
         {{ product.price }}€
       </p>
