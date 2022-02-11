@@ -28,9 +28,7 @@
 
     <!-- START: PAGE -->
     <div class="w-full pl-64">
-      <div :class="$route.path === '/' ? '' : 'p-5'">
-        <slot />
-      </div>
+      <slot />
     </div>
     <!-- END: PAGE -->
 

@@ -5,13 +5,20 @@
   const route = useRoute()
   const productId = route.params.productId
 
-  const { data: product, pending } = await useLazyFetch(`http://localhost:3001/products/${productId}`)
+  const { data: product, pending, error } = await useLazyFetch(`http://localhost:3001/products/${productId}?_embed=reviews`)
+  const reviewsAvg = computed(() => {
+    if (product.value.reviews.length > 0) {
+      return product.value.reviews.reduce((acc, review) => acc + review.rating, 0) / product.value.reviews.length
+    } else {
+      return null
+    }
+  })
 </script>
 
 <template>
   <div>
 
-    <div v-if="product" class="flex flex-row-reverse gap-5">
+    <div v-if="product" class="p-5 flex flex-row-reverse gap-5">
       <div class="w-2/3">
         <img class="w-full" :src="'/assets/images/'+product.imageName" :alt="product.name">
       </div>
@@ -32,11 +39,17 @@
         </div>
 
         <h1 class="mt-8 text-xl font-bold">{{ product.name }}</h1>
-        <!-- <p class="mt-4 text-sm">
-          <span class="align-middle">{{ product.averageRate }}</span>
-          <StarIcon class="ml-1 inline w-5 align-middle" />
-          <small class="pl-3 align-middle">{{ product.totalReviews }} avis</small>
-        </p> -->
+        <p class="mt-4 text-sm">
+          <template v-if="reviewsAvg">
+            <span class="align-middle">{{ reviewsAvg }}</span>
+            <StarIcon class="ml-1 inline w-5 align-middle" />
+            <small class="pl-3 align-middle">{{ product.reviews.length }} avis</small>
+          </template>
+          <template v-else>
+            <EmptyStarIcon class="inline w-5 align-middle" />
+            <small class="pl-3 align-middle">Aucun avis</small>
+          </template>
+        </p>
         <p class="mt-4 text-sm font-bold">
           {{ product.price }}€
         </p>
@@ -53,6 +66,8 @@
     </div>
 
     <hero-loader v-else-if="pending" />
+
+    <hero-error v-else-if="error" message="Ce produit ne semble pas exister."/>
     
   </div>
 </template>
