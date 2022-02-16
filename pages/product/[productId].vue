@@ -14,6 +14,10 @@
       return null
     }
   })
+
+  const { addProductToCart } = useCart()
+  const variantSelect = ref(null)
+
 </script>
 
 <template>
@@ -56,10 +60,10 @@
         </p>
 
         <form class="mt-8" @submit.prevent>
-          <select v-if="product.variants" class="select select-bordered w-full max-w-xs">
+          <select ref="variantSelect" v-if="product.variants" class="select select-bordered w-full max-w-xs">
             <option v-for="variant in product.variants" :selected="variant === product.defaultVariant">{{ variant }}</option> 
           </select>
-          <button class="w-full mt-4 btn">Ajouter au panier</button> 
+          <button class="w-full mt-4 btn" @click="addProductToCart(product, variantSelect)">Ajouter au panier</button> 
           <button class="w-full mt-4 btn btn-primary">Acheter maintenant</button> 
         </form>
 
