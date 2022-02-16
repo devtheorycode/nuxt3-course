@@ -1,6 +1,16 @@
 export const useCart = () => {
 
-  const selectedProducts = useState('selectedProducts', () => [])
+  const savedSelectedProducts = useCookie('selectedProduct', {
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
+  })
+
+  const selectedProducts = useState('selectedProducts', () => {
+    if (savedSelectedProducts.value !== undefined && savedSelectedProducts.value.length > 0) {
+      return savedSelectedProducts.value
+    } else {
+      return []
+    }
+  })
   
   const totalPrice = computed(() => {
     return selectedProducts.value.reduce((acc, product) => {
@@ -12,6 +22,11 @@ export const useCart = () => {
     return selectedProducts.value.reduce((acc, product) => {
       return acc + product.quantity
     }, 0)
+  })
+
+  watch(selectedProducts.value, () => {
+    savedSelectedProducts.value = selectedProducts.value
+    console.log({ savedSelectedProducts: savedSelectedProducts.value })
   })
   
   function addProductToCart(product, variantSelect) {
