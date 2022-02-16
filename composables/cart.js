@@ -1,16 +1,18 @@
 export const useCart = () => {
 
-  const selectedProducts = () => {
-    return useState('selectedProducts', () => [])
-  }
+  const selectedProducts = useState('selectedProducts', () => [])
   
-  const totalPrice = () => {
-    return computed(() => {
-      return selectedProducts.value.reduce((acc, product) => {
-        return acc + (product.price * product.quantity)
-      }, 0)
-    })
-  }
+  const totalPrice = computed(() => {
+    return selectedProducts.value.reduce((acc, product) => {
+      return acc + (product.price * product.quantity)
+    }, 0)
+  })
+
+  const totalProducts = computed(() => {
+    return selectedProducts.value.reduce((acc, product) => {
+      return acc + product.quantity
+    }, 0)
+  })
   
   function addProductToCart(product, variantSelect) {
 
@@ -42,7 +44,8 @@ export const useCart = () => {
   return {
     addProductToCart,
     selectedProducts,
-    tolalPrice
+    totalPrice,
+    totalProducts
   }
 
 }

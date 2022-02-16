@@ -1,6 +1,7 @@
 <script setup>
-  // import { ShoppingBagIcon } from '@heroicons/vue/outline'
+  import { ShoppingBagIcon } from '@heroicons/vue/outline'
 
+  const { totalProducts } = useCart()
   const categories = useCategories()
 
   const menuCategoryItems = categories.value.map(category => {
@@ -24,12 +25,12 @@
 
       <h1 class="flex items-center justify-between mt-5 px-5 text-2xl font-bold">
         DT Merch
-        <!-- <div class="indicator">
-          <span class="indicator-item badge badge-primary">0</span>
+        <div @click="$router.push('/cart')" class="indicator">
+          <span class="indicator-item badge badge-primary">{{ totalProducts }}</span>
           <button class="btn btn-square btn-outline btn-secondary">
             <ShoppingBagIcon class="w-6"/>
           </button> 
-        </div> -->
+        </div>
       </h1>
 
       <ul class="menu w-full mt-10 px-0">
