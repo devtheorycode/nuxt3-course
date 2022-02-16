@@ -1,11 +1,18 @@
 <script setup>
   // import { ShoppingBagIcon } from '@heroicons/vue/outline'
 
+  const categories = useCategories()
+
+  const menuCategoryItems = categories.value.map(category => {
+    return {
+      path: '/category/' + category.id,
+      title: category.title
+    }
+  })
+
   const menuItems = [
     { path: '/', title: 'Accueil' },
-    { path: '/category/head', title: 'Tête' },
-    { path: '/category/body', title: 'Hauts' },
-    { path: '/category/other', title: 'Autres' },
+    ...menuCategoryItems
   ]
 </script>
 
