@@ -1,6 +1,31 @@
 <script setup>
-  const { selectedProducts, totalPrice } = useCart()
+  const { selectedProducts, totalPrice, removeProductFromCart } = useCart()
   const categories = useCategories()
+
+  const allProductsCheckbox = ref(null)
+  const showDeleteBtn = ref(false)
+
+  function changeAllProductsCheckboxes(event) {
+    const checked = event.target.checked
+    document.querySelectorAll('.single-product-checkbox').forEach((checkbox) => {
+      checkbox.checked = checked
+    })
+    updateDeleteBtnState()
+  }
+
+  function updateDeleteBtnState() {
+    const areSomeProductsSelected = document.querySelectorAll('.single-product-checkbox:checked').length > 0
+    showDeleteBtn.value = areSomeProductsSelected
+  }
+
+  function deleteCheckedProducts() {
+    const checkedProducts = document.querySelectorAll('.single-product-checkbox:checked')
+    checkedProducts.forEach((product) => {
+      const productId = Number(product.dataset.productId)
+      removeProductFromCart(productId)
+    })
+    showDeleteBtn.value = false
+  }
 </script>
 
 <template>
@@ -17,7 +42,7 @@
             <tr>
               <th>
                 <label>
-                  <input type="checkbox" class="checkbox">
+                  <input @change="changeAllProductsCheckboxes($event)" type="checkbox" class="checkbox">
                 </label>
               </th>
               <th>Article</th>
@@ -28,10 +53,10 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="product in selectedProducts">
+            <tr v-for="product in selectedProducts" :key="product.id">
               <th>
                 <label>
-                  <input type="checkbox" class="checkbox">
+                  <input @change="updateDeleteBtnState()" :data-product-id="product.id" type="checkbox" class="checkbox single-product-checkbox">
                 </label>
               </th>
               <td>
@@ -65,7 +90,10 @@
         </table>
       </div>
   
-      <button class="mt-4 btn btn-primary">Confirmer l'achat ({{ totalPrice }}€)</button> 
+      <div class="flex gap-4 mt-4">
+        <button class="btn btn-primary">Confirmer l'achat ({{ totalPrice }}€)</button>
+        <button v-show="showDeleteBtn" @click="deleteCheckedProducts()" class="btn btn-error">Retirer ces produits</button> 
+      </div>
   
     </template>
 
