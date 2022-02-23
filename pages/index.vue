@@ -1,3 +1,12 @@
+<script setup>
+  useMeta({
+    title: 'Home',
+    bodyAttrs: {
+      class: 'homepage'
+    }
+  })
+</script>
+
 <template>
   <div class="hero min-h-screen" style="background-image: url(&quot;https://picsum.photos/id/1005/1600/1400&quot;);">
     <div class="hero-overlay bg-opacity-60"></div> 
