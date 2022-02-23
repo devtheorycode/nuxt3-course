@@ -61,6 +61,9 @@ export const useCart = () => {
       }
     }
 
+    const { $toast } = useNuxtApp()
+    $toast.success('Produit ajouté dans le panier')
+
   }
 
   // Removing a product from the cart by its id
