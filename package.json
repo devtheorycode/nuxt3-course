@@ -8,10 +8,8 @@
   },
   "devDependencies": {
     "@heroicons/vue": "^1.0.5",
-    "autoprefixer": "^10.4.2",
+    "@nuxtjs/tailwindcss": "^5.0.0-4",
     "daisyui": "^1.25.4",
-    "nuxt3": "^3.0.0-27424151.dbab979",
-    "postcss": "^8.4.6",
-    "tailwindcss": "^3.0.18"
+    "nuxt3": "^3.0.0-27424151.dbab979"
   }
 }
