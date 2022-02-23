@@ -1,6 +1,5 @@
 <script setup>
   const { selectedProducts, totalPrice, removeProductFromCart } = useCart()
-  const categories = useCategories()
 
   const allProductsCheckbox = ref(null)
   const showDeleteBtn = ref(false)
@@ -73,7 +72,7 @@
                         ({{ product.variants.join(', ') }})
                       </small>
                     </div>
-                    <div class="text-sm opacity-50">{{ categories.find(category => category.id === product.category).title }}</div>
+                    <div class="text-sm opacity-50">{{ $getCategoryTitle(product.category) }}</div>
                   </div>
                 </div>
               </td>

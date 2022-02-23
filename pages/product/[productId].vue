@@ -3,7 +3,6 @@
   import { StarIcon as EmptyStarIcon } from '@heroicons/vue/outline'
   
   const route = useRoute()
-  const categories = useCategories()
   const productId = route.params.productId
 
   const { data: product, pending, error } = await useLazyFetch(`http://localhost:3001/products/${productId}?_embed=reviews`)
@@ -35,7 +34,7 @@
               Catégorie
             </li> 
             <li>
-              <NuxtLink :to="'/category/' + product.category">{{ categories.find(category => category.id === product.category).title }}</NuxtLink>
+              <NuxtLink :to="'/category/' + product.category">{{$getCategoryTitle(product.category) }}</NuxtLink>
             </li>
             <li>
               <span class="text-base-content/75">Ce produit</span>
