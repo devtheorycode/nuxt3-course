@@ -1,4 +1,8 @@
 <script setup>
+  definePageMeta({
+    middleware: ['no-empty-cart']
+  })
+
   const { selectedProducts, totalPrice, removeProductFromCart } = useCart()
 
   const allProductsCheckbox = ref(null)
